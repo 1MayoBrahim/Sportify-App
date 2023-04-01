@@ -9,10 +9,8 @@ const options = {
   useUnifiedTopology: true,
 };
 
-// ***********************************************************************
 // This update handler takes care of updating the followers
 // and following users info in the database
-//************************************************************************
 
 const updateFollowingUsers = async (req, res) => {
   const { currentUser, targetUser } = req.body;
@@ -105,7 +103,6 @@ const updateFollowingUsers = async (req, res) => {
         .updateOne({ _id: targetedUser._id }, updateFollowers);
 
       // // Update the current user info in the currentUser collection
-      // const resultCurrentUser = await db.collection("currentUser").updateOne({ _id: currentUser._id }, updateFollowing );
 
       //Add the notifications to the targeted user profile
       const resultNotifications = await db
@@ -114,12 +111,10 @@ const updateFollowingUsers = async (req, res) => {
 
       client.close();
 
-      return res
-        .status(200)
-        .json({
-          status: 200,
-          message: "You have followed this account successfully",
-        });
+      return res.status(200).json({
+        status: 200,
+        message: "You have followed this account successfully",
+      });
     }
   });
 };

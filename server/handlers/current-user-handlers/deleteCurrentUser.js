@@ -8,10 +8,8 @@ const options = {
   useUnifiedTopology: true,
 };
 
-// ******************************************************************
 // The handler clears the data of logged out user from
 // the 'currentUser' collection in database
-// ***************************************************************
 
 const deleteCurrentUser = async (req, res) => {
   const { email } = req.params;
