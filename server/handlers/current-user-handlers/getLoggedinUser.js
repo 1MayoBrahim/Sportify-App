@@ -12,7 +12,7 @@ const options = {
 // This handler is used to let the user log in. It validates the user credentials and
 // save the current user info in the database in 'currentUser' collection
 
-const getLoggedInUser = async (req, res) => {
+const getLoggedinUser = async (req, res) => {
   const { email, password } = req.query;
 
   const query = { email };
@@ -69,4 +69,4 @@ const getLoggedInUser = async (req, res) => {
   }
 };
 
-module.exports = { getLoggedInUser };
+module.exports = { getLoggedinUser };

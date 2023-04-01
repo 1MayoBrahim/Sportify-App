@@ -1,28 +1,28 @@
-const { config } = require("dotenv");
 const { MongoClient } = require("mongodb");
 
-require("dotenv"), config();
+require("dotenv").config();
+const { MONGO_URI } = process.env;
 
 const options = {
-  userNewUrlParsers: true,
+  useNewUrlParser: true,
   useUnifiedTopology: true,
 };
+// *************************************************************************
+// The handler gets an activity post data from the database
+// *************************************************************************
 
-// Handler will gets an activity post data from the database
-
-const getPosById = async (req, res) => {
+const getPostById = async (req, res) => {
   try {
-    const { _id } = req.params; // to get the post _id
+    const { _id } = req.params; // Get that the post _id
     const query = { _id };
 
-    // Connect to MongoDB
+    // Connect to Mongo DB
     const client = new MongoClient(MONGO_URI, options);
     await client.connect();
     console.log("connected");
 
     // Connect to the database
-    const db = client.db("Sportify");
-
+    const db = client.db("SportsPickApp");
     // Find the post based on the provided post _id
     const post = db.collection("posts").findOne(query, (err, result) => {
       client.close();
@@ -31,7 +31,7 @@ const getPosById = async (req, res) => {
         ? res.status(200).json({ status: 200, post: result })
         : res.status(404).json({
             status: 404,
-            message: `No post found with the provided _id ${_id}`,
+            message: `Post info not found with the provided _id ${_id}`,
           });
     });
   } catch (err) {
@@ -41,4 +41,4 @@ const getPosById = async (req, res) => {
   }
 };
 
-module.exports = { getPosById };
+module.exports = { getPostById };
