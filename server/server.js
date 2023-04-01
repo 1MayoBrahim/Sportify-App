@@ -66,7 +66,7 @@ app.get("/users", getUsers);
 app.get("/users/:_id", getUserById);
 // When a user signs up with a new account, post the new user info
 app.post("/users/add", addNewUser);
-// Store user info in 'current user collection' when a user sigs in or sings up
+// Store user info in 'current user collection' when a user sings in or sings up
 app.get("/loggedin", getLoggedinUser);
 // When a user signs out, clear the data from 'currentUser' collection
 app.delete("/loggedout/:email", deleteCurrentUser);
