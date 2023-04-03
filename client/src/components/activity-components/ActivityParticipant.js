@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import noImg from "./";
+import noImg from "./components/assets/no-img";
 import { useNavigate } from "react-router-dom";
 
 const ActivityParticipant = ({ role, _id }) => {

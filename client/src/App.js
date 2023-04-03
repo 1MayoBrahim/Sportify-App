@@ -12,6 +12,7 @@ import Profile from "./components/profile-page/Profile";
 import Home from "./components/homefeed/Home";
 import ActivityForm from "./components/create-activity-page/ActivityForm";
 import ActivityDetails from "./components/activity-components/ActivityDetails";
+import ChatSys from "./components/chat-page/ChatSys";
 import Notifications from "./components/notifications-page/Notifications";
 
 const App = () => {

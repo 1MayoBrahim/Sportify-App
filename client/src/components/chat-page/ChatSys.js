@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Styled, { keyframes } from "styled-components";
 import Chat from "./components/Chat";
 import { CurrentUserContext } from "../all-contexts/currentUserContext";
-import { UseParams } from "react-router";
+import { UseParams } from "react-router-dom";
 
 const ChatSys = () => {
   const { _id } = UseParams();
