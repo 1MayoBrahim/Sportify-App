@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { useParams, useHistory } from "react-router";
 import { FaShieldAlt, FaArrowLeft } from "react-icons/fa";
@@ -12,7 +13,7 @@ import ActivityParticipant from "./ActivityParticipant";
 const ActivityDetails = () => {
   // Get the current user data from the context
   const { currentUser } = useContext(CurrentUserContext);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // Get the post id for fetching
   const { _id } = useParams();
@@ -50,7 +51,7 @@ const ActivityDetails = () => {
   return (
     <Wrapper>
       <ReturnBar>
-        <ReturnButton onClick={() => history.goBack()}>
+        <ReturnButton onClick={() => navigate(-1)}>
           <FaArrowLeft size={30} />
         </ReturnButton>
       </ReturnBar>

@@ -10,8 +10,11 @@ import { CurrentUserContext } from "./components/all-contexts/currentUserContext
 import NavBar from "./components/nav-bar/NavBar";
 import Profile from "./components/profile-page/Profile";
 import Home from "./components/homefeed/Home";
+import ActivityForm from "./components/create-activity-page/ActivityForm";
+import ActivityDetails from "./components/activity-components/ActivityDetails";
+import Notifications from "./components/notifications-page/Notifications";
 
-function App() {
+const App = () => {
   const { isUserLoggedIn, currentUser } = useContext(CurrentUserContext);
 
   return (
@@ -69,7 +72,7 @@ function App() {
       </Wrapper>
     </BrowserRouter>
   );
-}
+};
 
 const Wrapper = styled.div`
   width: 100vw;
