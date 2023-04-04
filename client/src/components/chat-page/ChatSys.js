@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import Styled, { keyframes } from "styled-components";
 import Chat from "./components/Chat";
 import { CurrentUserContext } from "../all-contexts/currentUserContext";
-import { UseParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ChatSys = () => {
-  const { _id } = UseParams();
+  const { _id } = useParams();
 
   const { currentUser } = useContext(CurrentUserContext);
 
@@ -33,7 +33,7 @@ const slideIn = keyframes`
   }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = Styled.div`
   height: 100%;
   animation: ${slideIn} 0.4s ease-out both;
 `;
