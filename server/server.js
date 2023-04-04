@@ -40,7 +40,7 @@ const {
 const socketIo = require("socket.io");
 
 const cors = require("cors");
-var bodyParser = require("body-parser");
+let bodyParser = require("body-parser");
 
 const PORT = 8000;
 const frontUrl = "http://localhost:3000";
@@ -96,7 +96,7 @@ app.post("/add-login-session", postLoginSession);
 // delate current user data when the user logs out
 app.delete("/delete-login-session", deleteLoginSession);
 
-var server = app.listen(PORT, function () {
+let server = app.listen(PORT, function () {
   console.info("🌍 Listening on port " + PORT);
 });
 

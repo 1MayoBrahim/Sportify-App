@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import GlobalStyles from "./components/GlobalStyles";
 import LoginSignupPage from "./components/login-signup-pages/LoginSignupPage";
 import LoginPage from "./components/login-signup-pages/LoginPage";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import SignupPage from "./components/login-signup-pages/SignupPage";
 import styled from "styled-components";
 import ChatLists from "./components/chat-page/AllJoinedChatsLists";
@@ -15,8 +15,18 @@ import ActivityDetails from "./components/activity-components/ActivityDetails";
 import ChatSys from "./components/chat-page/ChatSys";
 import Notifications from "./components/notifications-page/Notifications";
 
+const RedirectToProfile = () => {
+  const navigate = useNavigate();
+  const { currentUser } = useContext(CurrentUserContext);
+  React.useEffect(() => {
+    navigate(`/profile/${currentUser._id}`);
+  }, [currentUser, navigate]);
+
+  return null;
+};
+
 const App = () => {
-  const { isUserLoggedIn, currentUser } = useContext(CurrentUserContext);
+  const { isUserLoggedIn } = useContext(CurrentUserContext);
 
   return (
     <BrowserRouter>
@@ -24,51 +34,29 @@ const App = () => {
       <Wrapper>
         <Container>
           <Routes>
-            <Route exact path="/">
-              {isUserLoggedIn ? (
-                <Link to={`/profile/${currentUser._id}`} />
-              ) : (
-                <LoginSignupPage />
-              )}
-            </Route>
-            <Route path="/signup">
-              <SignupPage />
-            </Route>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            {isUserLoggedIn && (
-              <MainAppContainer>
-                <SubContainer>
-                  <Route exact path="/profile/:_id">
-                    <Profile />
-                  </Route>
-                  <Route path="/group-chats">
-                    <ChatLists />
-                  </Route>
-                  <Route path="/chats/:_id">
-                    <ChatSys />
-                  </Route>
-                  <Route path="/create-activity">
-                    <ActivityForm />
-                  </Route>
-                  <Route path="/home">
-                    <Home />
-                  </Route>
-                  <Route path="/activity/:_id">
-                    <ActivityDetails />
-                  </Route>
-                  <Route path="/notifications">
-                    <Notifications />
-                  </Route>
-                </SubContainer>
-                <NavBar />
-              </MainAppContainer>
-            )}
-            <Route path="">
-              <Link to="/" />
-            </Route>
+            <Route
+              path="/"
+              element={
+                isUserLoggedIn ? <RedirectToProfile /> : <LoginSignupPage />
+              }
+            />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
+          {isUserLoggedIn && (
+            <>
+              <Routes>
+                <Route path="/profile/:_id" element={<Profile />} />
+                <Route path="/group-chats" element={<ChatLists />} />
+                <Route path="/chats/:_id" element={<ChatSys />} />
+                <Route path="/create-activity" element={<ActivityForm />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/activity/:_id" element={<ActivityDetails />} />
+                <Route path="/notifications" element={<Notifications />} />
+              </Routes>
+              <NavBar />
+            </>
+          )}
         </Container>
       </Wrapper>
     </BrowserRouter>
