@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import GlobalStyles from "./GlobalStyles";
+import GlobalStyles from "./components/GlobalStyles";
 import LoginSignupPage from "./components/login-signup-pages/LoginSignupPage";
 import LoginPage from "./components/login-signup-pages/LoginPage";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ import NavBar from "./components/nav-bar/NavBar";
 import Profile from "./components/profile-page/Profile";
 import Home from "./components/homefeed/Home";
 import ActivityForm from "./components/create-activity-page/ActivityForm";
-import ActivityDetails from "./components/acitivity-components/ActivityDetails";
+import ActivityDetails from "./components/activity-components/ActivityDetails";
 import ChatSys from "./components/chat-page/ChatSys";
 import Notifications from "./components/notifications-page/Notifications";
 

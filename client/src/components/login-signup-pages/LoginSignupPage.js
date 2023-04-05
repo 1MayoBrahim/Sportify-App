@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import SportsBackground from "../assets/wave-haikei.svg";
-import bgImg from "../assets/bg-img.png";
+import bgImg from "./components/assets/bgImg";
 
 // This is pageto give users options  for the sign in or log in page
 const LoginSignupPage = () => {
