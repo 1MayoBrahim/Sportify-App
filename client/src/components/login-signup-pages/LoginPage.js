@@ -10,7 +10,7 @@ import {
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../all-contexts/currentUserContext";
-import LoadingCircule from "../loading-components/loadingCircule";
+import LoadingCircle from "../loading-components/loadingCircle";
 import { addLoginSession } from "../helpers/express-session-helpers";
 import SportsBackground from "../assets/wave-haikei.svg";
 
@@ -96,7 +96,7 @@ const LoginPage = () => {
         </Error>
         <ButtonContainer>
           <LoginButton>
-            {fetchStatus === "loading" ? <LoadingCircule /> : "Log In"}
+            {fetchStatus === "loading" ? <LoadingCircle /> : "Log In"}
           </LoginButton>
         </ButtonContainer>
       </Form>

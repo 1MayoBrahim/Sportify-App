@@ -5,7 +5,7 @@ import { sports, levels } from "./FormConstants";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import AddressSearchBox from "./AddressSearchBox";
-import LoadingCircule from "../loading-components/loadingCircule";
+import LoadingCircule from "../loading-components/loadingCircle";
 
 const ActivityForm = () => {
   // Get the current user info from the currentUserContext

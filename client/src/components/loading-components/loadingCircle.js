@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { ImSpinner9 } from "react-icons/im";
 
-const LoadingCircule = () => {
+const LoadingCircle = () => {
   return (
     <Wrapper>
       <div>
@@ -38,4 +38,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default LoadingCircule;
+export default LoadingCircle;

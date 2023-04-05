@@ -11,7 +11,7 @@ import {
 } from "react-icons/fi";
 import { CurrentUserContext } from "../all-contexts/currentUserContext";
 import { useNavigate } from "react-router-dom";
-import LoadingCircule from "../loading-components/loadingCircule";
+import LoadingCircule from "../loading-components/loadingCircle";
 import { addLogginSession } from "../helpers/uploadImgtoCloudinary";
 import SportsBackground from "../assets/wave-haikei.svg";
 
