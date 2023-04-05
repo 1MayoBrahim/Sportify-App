@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import GlobalStyles from "./components/GlobalStyles";
+import GlobalStyles from "./GlobalStyles";
 import LoginSignupPage from "./components/login-signup-pages/LoginSignupPage";
 import LoginPage from "./components/login-signup-pages/LoginPage";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
@@ -11,22 +11,12 @@ import NavBar from "./components/nav-bar/NavBar";
 import Profile from "./components/profile-page/Profile";
 import Home from "./components/homefeed/Home";
 import ActivityForm from "./components/create-activity-page/ActivityForm";
-import ActivityDetails from "./components/activity-components/ActivityDetails";
+import ActivityDetails from "./components/acitivity-components/ActivityDetails";
 import ChatSys from "./components/chat-page/ChatSys";
 import Notifications from "./components/notifications-page/Notifications";
 
-const RedirectToProfile = () => {
-  const navigate = useNavigate();
-  const { currentUser } = useContext(CurrentUserContext);
-  React.useEffect(() => {
-    navigate(`/profile/${currentUser._id}`);
-  }, [currentUser, navigate]);
-
-  return null;
-};
-
-const App = () => {
-  const { isUserLoggedIn } = useContext(CurrentUserContext);
+function App() {
+  const { isUserLoggedIn, currentUser } = useContext(CurrentUserContext);
 
   return (
     <BrowserRouter>
@@ -37,15 +27,17 @@ const App = () => {
             <Route
               path="/"
               element={
-                isUserLoggedIn ? <RedirectToProfile /> : <LoginSignupPage />
+                isUserLoggedIn ? (
+                  <navigate to={`/profile/${currentUser._id}`} />
+                ) : (
+                  <LoginSignupPage />
+                )
               }
             />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/login" element={<LoginPage />} />
-          </Routes>
-          {isUserLoggedIn && (
-            <>
-              <Routes>
+            {isUserLoggedIn && (
+              <>
                 <Route path="/profile/:_id" element={<Profile />} />
                 <Route path="/group-chats" element={<ChatLists />} />
                 <Route path="/chats/:_id" element={<ChatSys />} />
@@ -53,15 +45,15 @@ const App = () => {
                 <Route path="/home" element={<Home />} />
                 <Route path="/activity/:_id" element={<ActivityDetails />} />
                 <Route path="/notifications" element={<Notifications />} />
-              </Routes>
-              <NavBar />
-            </>
-          )}
+              </>
+            )}
+          </Routes>
+          {isUserLoggedIn && <NavBar />}
         </Container>
       </Wrapper>
     </BrowserRouter>
   );
-};
+}
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -100,5 +92,4 @@ const SubContainer = styled.div`
   color: white;
   overflow: hidden;
 `;
-
 export default App;
