@@ -9,7 +9,7 @@ import {
   FiClipboard,
 } from "react-icons/fi";
 import moment from "moment";
-import ActivityItemBackground from "../assests/low-poly-grid-haikei.svg";
+import ActivityItemBackground from "../assets/low-poly-grid-haikei.svg";
 import { useNavigate } from "react-router";
 
 // Here I should be passing the data of the activity I want to show.. no fetch here

@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { CurrentUseContext } from "../all-contexts/currentUserContext";
-import { FiLogout } from "react-icons/fi";
+import { CurrentUserContext } from "../all-contexts/currentUserContext";
+import { FiLogOut } from "react-icons/fi";
 import { deleteLoginSession } from "../helpers/express-session-helpers";
 
 // A log out button in the current use profile. it will calls the endpoint
@@ -11,7 +11,7 @@ import { deleteLoginSession } from "../helpers/express-session-helpers";
 
 const LogoutButton = () => {
   const navigate = useNavigate();
-  const { setIsUserLoggedIn, setCurrentUser } = useContext(CurrentUseContext);
+  const { setIsUserLoggedIn, setCurrentUser } = useContext(CurrentUserContext);
 
   const handleLogout = () => {
     deleteLoginSession();
@@ -21,7 +21,7 @@ const LogoutButton = () => {
   };
   return (
     <Button onClick={() => handleLogout()}>
-      <span>FiLogout</span> <FiLogout />
+      <span>FiLogOut</span> <FiLogOut />
     </Button>
   );
 };
