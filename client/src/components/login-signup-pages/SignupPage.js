@@ -169,6 +169,7 @@ const SignupPage = () => {
             }}
           />
         </InputContainerImage>
+
         <InputContainer>
           <FiMapPin size={IconSize} />
           <Input

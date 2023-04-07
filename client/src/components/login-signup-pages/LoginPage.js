@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import { hitOutlineMail, HiOutlineKey } from "react-icons/fi";
 import {
   FiAtSign,
   FiLock,
@@ -14,10 +13,6 @@ import LoadingCircle from "../loading-components/loadingCircle";
 import { addLoginSession } from "../helpers/express-session-helpers";
 import SportsBackground from "../assets/wave-haikei.svg";
 
-// This is the login page. Its will asks for the user email and password.
-//it will calls updateCurrentUser function from CurrentUserContext,
-// updateCurrentUser handlers singing in and returns response if signing in fails
-
 const LoginPage = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -30,7 +25,7 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
   const iconSize = 35;
-  const { setCurrentUser, setIsUserLoggedIN } = useContext(CurrentUserContext);
+  const { setCurrentUser, setIsUserLoggedIn } = useContext(CurrentUserContext);
 
   const handleEmailInput = (value) => {
     setUserEmail(value);
@@ -42,8 +37,8 @@ const LoginPage = () => {
     setErrorStatus({ status: "idle", error: "no error" });
   };
 
-  const handleSubmit = (ev) => {
-    ev.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     setFetchStatus("loading");
 
     fetch(`/loggedin?email=${userEmail}&password=${userPassword}`)
@@ -51,31 +46,37 @@ const LoginPage = () => {
       .then((data) => {
         if (data.status === 200) {
           setCurrentUser(data.result);
-          setIsUserLoggedIN(true);
-          addLoginSession(data.result);
-          navigate(`/profile/${data.result.id}`);
+          setIsUserLoggedIn(true);
+          addLoginSession(data.result).then(() => {
+            navigate(`/profile/${data.result._id}`);
+          });
         } else {
           setErrorStatus({ status: "error", error: data.message });
         }
         setFetchStatus("idle");
       });
   };
+
   return (
     <Wrapper>
-      <h1>Welcome Back !</h1>
+      <h1>Welcome Back!</h1>
       <BackgroundImg src={SportsBackground} />
-      <Form onSubmit={(ev) => handleSubmit(ev)}>
+      <Form onSubmit={handleSubmit}>
         <InputContainer>
           <FiAtSign size={iconSize} />
           <Input
             placeholder="Email Address"
             type="email"
+            value={userEmail}
             onChange={(ev) => {
               handleEmailInput(ev.target.value);
             }}
           />
           <EyeIcon>
-            <FiEye size={30} color={"transparent"} />
+            <FiEye
+              size={30}
+              color={isPasswordShown ? "#293241" : "transparent"}
+            />
           </EyeIcon>
         </InputContainer>
         <InputContainer>
@@ -83,17 +84,20 @@ const LoginPage = () => {
           <Input
             placeholder="Password"
             type={isPasswordShown ? "text" : "password"}
+            value={userPassword}
             onChange={(ev) => {
               handlePasswordInput(ev.target.value);
             }}
           />
           <EyeIcon onClick={() => setIsPasswordShown(!isPasswordShown)}>
-            {isPasswordShown ? <FiEye size={30} /> : <FiEyeOff size={30} />}
+            {isPasswordShown ? <FiEyeOff size={30} /> : <FiEye size={30} />}
           </EyeIcon>
         </InputContainer>
-        <Error>
-          {errorStatus.status === "err" ? `* ${errorStatus.error} *` : ""}
-        </Error>
+        {errorStatus.status === "error" && (
+          <Error>
+            <FiAlertCircle size={20} /> {errorStatus.error}
+          </Error>
+        )}
         <ButtonContainer>
           <LoginButton>
             {fetchStatus === "loading" ? <LoadingCircle /> : "Log In"}

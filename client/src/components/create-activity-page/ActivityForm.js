@@ -208,14 +208,14 @@ const ActivityForm = () => {
           </DateContainer>
         </Container>
 
-        <ButtonConatiner>
+        <ButtonContainer>
           <SubmitButton type="submit">
             {formStatus === "loading" ? <LoadingCircule /> : "Post"}
           </SubmitButton>
           <RestButton type="reset" onClick={() => handleFormRest()}>
             Clear
           </RestButton>
-        </ButtonConatiner>
+        </ButtonContainer>
       </Form>
       <Snackbar
         open={isFormSubmitted}
@@ -292,7 +292,7 @@ const Container = styled.div`
   padding: 10px 15px;
 `;
 
-const ButtonConatiner = styled.div`
+const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   /* border: 1px solid red; */
