@@ -16,7 +16,7 @@ import BannerBackground from "../../components/assets/circle-scatter-haikei.svg"
 
 const Profile = () => {
   let navigate = useNavigate();
-  let { _id } = useParams();
+  const { _id } = useParams();
 
   // Get current user information from the currentUser Context
   const { currentUser } = useContext(CurrentUserContext);
@@ -46,7 +46,8 @@ const Profile = () => {
   if (
     profileDataStatus === "loading" ||
     profileData == null ||
-    profileData === undefined
+    profileData === undefined ||
+    Object.keys(profileData).length === 0 // add this check
   ) {
     return (
       <CircleWrapper>

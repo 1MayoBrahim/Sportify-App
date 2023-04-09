@@ -11,8 +11,9 @@ import {
 } from "react-icons/fi";
 import { CurrentUserContext } from "../all-contexts/currentUserContext";
 import { useNavigate } from "react-router-dom";
-import LoadingCircule from "../loading-components/loadingCircle";
-import { addLogginSession } from "../helpers/uploadImgtoCloudinary";
+import LoadingCircle from "../loading-components/loadingCircle";
+import { addLoginSession } from "../helpers/express-session-helpers";
+import uploadImageToCloudinary from "../helpers/uploadImgtoCloudinary";
 import SportsBackground from "../assets/wave-haikei.svg";
 
 // This is the signup page, its contains the signup form
@@ -77,7 +78,7 @@ const SignupPage = () => {
         if (status === 200) {
           setCurrentUser(data);
           setIsUserLoggedIn(true);
-          addLogginSession(data);
+          addLoginSession(data);
           console.log(data);
           history.push(`/profile/${data._id}`);
         } else {
@@ -185,7 +186,7 @@ const SignupPage = () => {
         )}
         <ButtonContainer>
           <SignUpButton type="submit">
-            {fetchStatus === "loading" ? <LoadingCircule /> : "Sign Up"}
+            {fetchStatus === "loading" ? <LoadingCircle /> : "Sign Up"}
           </SignUpButton>
         </ButtonContainer>
       </Form>
