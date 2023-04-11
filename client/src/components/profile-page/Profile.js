@@ -20,6 +20,7 @@ const Profile = () => {
 
   // Get current user information from the currentUser Context
   const { currentUser } = useContext(CurrentUserContext);
+  console.log("currentUser", currentUser);
   // A state variable to store the data for the user profile
   const [profileData, setProfileData] = useState();
   const [profileDataStatus, setProfileDataStatus] = useState("idle");
@@ -34,10 +35,11 @@ const Profile = () => {
   // When the profile component is mounted , fetch the profile data of the
   // user with the provided _id in useParams();
   useEffect(() => {
-    setProfileDataStatus("loading");
+    //setProfileDataStatus("loading");
     fetch(`/users/${_id}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log("here", data);
         setProfileData(data.user);
         setProfileDataStatus(data.user.followers.length);
       });

@@ -20,6 +20,7 @@ const NavBar = () => {
   // From th navbar you can navigate to the proper page
 
   const handleClick = (tabId, path) => {
+    console.log("click");
     setActive(tabId);
     Navigate(`/${path}`);
   };
@@ -59,12 +60,13 @@ const NavBar = () => {
 };
 
 const Button = styled.button`
+  padding: 10px;
   background-color: #3c4552;
   border-bottom: 7px solid rgba(255, 255, 255, 0.1);
   width: 25%;
   cursor: pointer;
-
-  ${({ active }) => active && ` border-bottom: 7px solid #EE6C4D; `}
+  z-index: 10;
+  ${({ active }) => active && ` border-bottom: 7px solid #EE6C4D; `};
 `;
 const Wrapper = styled.div`
   display: flex;

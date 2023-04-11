@@ -21,16 +21,16 @@ const LoginSignupPage = () => {
       <BackgroundImg src={SportsBackground} />
       <ButtonContainer>
         <Logo>
-          <span>SPORTS</span>
-          <span>PICK</span>
+          <span>SPORTIFY</span>
+          <span>APP</span>
           Get Together with One Click
         </Logo>
         <Quotes>
           <p>
-            “One man can be a crucial ingredient on a team, but one man cannot
-            make a team.”
+            “Unleash Your Inner Athlete with Sportify - The Ultimate Social
+            Platform for Sports!.”
           </p>
-          <span>-Kareem Abdul-Jabbar</span>
+          <span>-AI</span>
         </Quotes>
         <LoginButton
           onClick={() => {
@@ -61,8 +61,8 @@ const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  width: 824px;
+  height: 734px;
   background: #293241;
   background: -webkit-linear-gradient(to bottom, #141e30, #243b55);
   background: linear-gradient(to bottom, #141e30, #243b55);

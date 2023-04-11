@@ -8,21 +8,22 @@ export const CurrentUserProvider = ({ children }) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch("/get-login-session")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 200) {
-          setCurrentUser(data.result);
-          setIsUserLoggedIn(true);
-          console.log(data.message);
-        } else {
-          setIsUserLoggedIn(false);
-          console.log(data.message);
-        }
-      });
+    // fetch("/get-login-session")
+    //  .then((res) => res.json())
+    //  .then((data) => {
+    //    console.log(data, "data");
+    //   if (data.status === 200) {
+    //      setCurrentUser(data.result);
+    //     setIsUserLoggedIn(true);
+    //     console.log(data.message);
+    //  } else {
+    //    setIsUserLoggedIn(false);
+    //    console.log(data.message);
+    //  }
+    // });
     return () => {
       setCurrentUser(null);
-      isUserLoggedIn(false);
+      setIsUserLoggedIn(false);
     };
   }, []);
 

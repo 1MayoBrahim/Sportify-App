@@ -6,7 +6,7 @@ import Search from "./all-activities-search";
 import FilterBar from "./filterBar";
 import { CurrentUserLocation } from "../all-contexts/currentLocationContext";
 
-// This the homepage, it navegates between a map, and regular homefeed
+// This the homepage, it navigates between a map, and regular homefeed
 
 const Home = () => {
   // Get current user location, and getDistance function

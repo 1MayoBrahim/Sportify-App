@@ -12,28 +12,26 @@ const options = {
 // *************************************************************************
 
 const getPostById = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
   try {
     const { _id } = req.params; // Get that the post _id
     const query = { _id };
 
     // Connect to Mongo DB
-    const client = new MongoClient(MONGO_URI, options);
+
     await client.connect();
     console.log("connected");
 
     // Connect to the database
-    const db = client.db("SportsPickApp");
+    const db = client.db("Sportify");
     // Find the post based on the provided post _id
-    const post = db.collection("posts").findOne(query, (err, result) => {
-      client.close();
-      console.log("disconnected");
-      result
-        ? res.status(200).json({ status: 200, post: result })
-        : res.status(404).json({
-            status: 404,
-            message: `Post info not found with the provided _id ${_id}`,
-          });
-    });
+    const post = await db.collection("posts").findOne(query);
+
+    if (post) {
+      return res.status(200).json({ status: 200, post });
+    } else {
+      return res.status(404).json({ status: 404, message: "post not found" });
+    }
   } catch (err) {
     client.close();
     console.log("disconnected");

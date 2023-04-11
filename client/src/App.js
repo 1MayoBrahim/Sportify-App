@@ -17,7 +17,7 @@ import Notifications from "./components/notifications-page/Notifications";
 
 function App() {
   const { isUserLoggedIn, currentUser } = useContext(CurrentUserContext);
-
+  console.log(currentUser);
   return (
     <BrowserRouter>
       <GlobalStyles />

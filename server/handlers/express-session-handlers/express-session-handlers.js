@@ -1,4 +1,6 @@
 const getLoginSession = (req, res) => {
+  console.log(req.session);
+
   if (req.session.currentUser) {
     res.status(200).json({
       status: 200,
@@ -17,17 +19,17 @@ const getLoginSession = (req, res) => {
 const postLoginSession = (req, res) => {
   const currentUser = req.body;
 
-  if (req.session.currentUser) {
+  if (currentUser) {
     res.status(400).json({
       status: 400,
-      result: null,
+      result: currentUser,
       message: "There is already user data in express-session",
     });
   } else {
-    req.session.currentUser = currentUser;
+    currentUser = currentUser;
     res.status(200).json({
       status: 200,
-      result: req.session.currentUser,
+      result: currentUser,
       message: "Current user data added to express-session",
     });
   }

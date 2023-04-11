@@ -45,11 +45,13 @@ const LoginPage = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          setCurrentUser(data.result);
+          setCurrentUser(data.exitingUser);
           setIsUserLoggedIn(true);
-          addLoginSession(data.result).then(() => {
-            navigate(`/profile/${data.result._id}`);
-          });
+          navigate(`/profile/${data.exitingUser._id}`);
+          //addLoginSession(data).then((data) => {
+          //console.log("here", data);
+          //navigate(`/profile/${data._id}`);
+          //});
         } else {
           setErrorStatus({ status: "error", error: data.message });
         }

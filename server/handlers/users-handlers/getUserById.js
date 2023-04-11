@@ -12,6 +12,7 @@ const options = {
 // on the user unique _id
 
 const getUserById = async (req, res) => {
+  console.log("callllllllll");
   const { _id } = req.params;
   const query = { _id };
   try {
@@ -20,16 +21,13 @@ const getUserById = async (req, res) => {
     console.log("connected");
 
     const db = client.db("Sportify");
-    const user = db.collection("users").findOne(query, (err, result) => {
-      client.close();
-      console.log("disconnected");
-      result
-        ? res.status(200).json({ status: 200, user: result })
-        : res.status(404).json({
-            status: 404,
-            message: `user info at ${_id} not found`,
-          });
-    });
+    const user = await db.collection("users").findOne(query);
+    console.log("user", user);
+    if (user) {
+      return res.status(200).json({ status: 200, user });
+    } else {
+      return res.status(404).json({ status: 404, message: "user not found" });
+    }
   } catch (err) {
     console.log("Error:", err);
   }

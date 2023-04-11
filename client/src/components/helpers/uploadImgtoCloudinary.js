@@ -4,7 +4,7 @@ const uploadImageToCloudinary = (userImage, handleInputChange) => {
   data.append("upload_preset", "chat-plateform");
   data.append("cloud_name", "sportify-app");
   fetch("https://api.cloudinary.com/v1_1/sportify-app/image/upload", {
-    method: "post",
+    method: "POST",
     body: data,
   })
     .then((res) => res.json())

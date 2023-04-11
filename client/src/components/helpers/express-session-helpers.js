@@ -9,11 +9,9 @@ export const addLoginSession = (currentUser) => {
     .then((res) => res.json())
     .then((data) => {
       if (data.status === 200) {
-        console.log(data.message);
-        console.log(data.result);
+        return data.result;
       } else {
-        console.log(data.message);
-        console.log(data.result);
+        return data.result;
       }
     });
 };

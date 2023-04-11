@@ -96,6 +96,13 @@ app.post("/add-login-session", postLoginSession);
 // delate current user data when the user logs out
 app.delete("/delete-login-session", deleteLoginSession);
 
+app.get("*", (req, res) => {
+  console.log("This is not the endpoint you are looking for");
+  res.status(404).json({
+    status: 404,
+    message: "This is not the endpoint you are looking for",
+  });
+});
 let server = app.listen(PORT, function () {
   console.info("🌍 Listening on port " + PORT);
 });

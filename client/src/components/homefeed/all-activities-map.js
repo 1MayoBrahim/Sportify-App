@@ -64,7 +64,7 @@ const Map = ({ postsData, postDataStatus }) => {
 
     return (
         <Wrapper>
-            <Title>SportsPickApp</Title>
+            <Title>Sportify App</Title>
             <CurrentLocationButton panTo = { panTo }/>
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}

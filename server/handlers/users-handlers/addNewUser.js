@@ -83,13 +83,11 @@ const addNewUser = async (req, res) => {
         message: "Your date of birth is missing",
       });
     } else if (imgSrc === "") {
-      return res
-        .status(400)
-        .json({
-          status: 400,
-          data: newUserInfo,
-          message: "Your profile image is missing",
-        });
+      return res.status(400).json({
+        status: 400,
+        data: newUserInfo,
+        message: "Your profile image is missing",
+      });
     } else if (location === "") {
       return res.status(400).json({
         status: 400,
