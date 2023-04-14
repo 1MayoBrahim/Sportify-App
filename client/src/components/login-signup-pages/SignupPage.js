@@ -80,7 +80,7 @@ const SignupPage = () => {
           setIsUserLoggedIn(true);
           addLoginSession(data);
           console.log(data);
-          history.push(`/profile/${data._id}`);
+          navigate(`/profile/${data._id}`);
         } else {
           setErrorStatus({ status: "error", error: message });
         }

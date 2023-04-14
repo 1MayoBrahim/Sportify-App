@@ -61,7 +61,7 @@ const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 824px;
+  width: 414px;
   height: 734px;
   background: #293241;
   background: -webkit-linear-gradient(to bottom, #141e30, #243b55);

@@ -21,14 +21,12 @@ const Notifications = () => {
     fetch(`/users/${currentUser._id}`)
       .then((res) => res.json())
       .then((data) => {
-        // data.user.notifications array order is reversed to in order to have the most
-        // notification first. PS: using flex-box styling to display componenets in reverse
-        // caused some issues with scrolling vertically
-        setNotifications(data.user.notifications.reverse());
+        // Check if data.user.notifications exists before calling reverse method
+        const reversedNotifications = data.user.notifications?.reverse() || [];
+        setNotifications(reversedNotifications);
         setNotificationsStatus("idle");
       });
-  }, []);
-
+  }, [currentUser._id]);
   if (notificationsStatus === "loading") {
     return (
       <Wrapper>
@@ -67,6 +65,7 @@ const Wrapper = styled.div`
   h2 {
     height: 40px;
     text-align: center;
+    color: white;
   }
 `;
 
@@ -88,6 +87,7 @@ const CircleWrapper = styled.div`
   height: 100%;
   justify-content: center;
   align-items: center;
+  color: white;
 `;
 
 const Container = styled.div`

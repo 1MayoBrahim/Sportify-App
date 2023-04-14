@@ -42,7 +42,7 @@ const NavBar = () => {
       </Button>
       <Button
         active={active === 3}
-        onClick={() => handleClick(3, "create-acitvity")}
+        onClick={() => handleClick(3, "create-activity")}
       >
         <FiPlusCircle size={iconSize} color={"EE6C4D"} />
       </Button>

@@ -37,6 +37,12 @@ const {
   postLoginSession,
   deleteLoginSession,
 } = require("./handlers/express-session-handlers/express-session-handlers");
+const {
+  handleGetComments,
+  handleUpdateComment,
+  handleDeleteComment,
+  handleAddComment,
+} = require("./handlers/comments-handlers");
 const socketIo = require("socket.io");
 
 const cors = require("cors");
@@ -95,6 +101,18 @@ app.get("/get-login-session", getLoginSession);
 app.post("/add-login-session", postLoginSession);
 // delate current user data when the user logs out
 app.delete("/delete-login-session", deleteLoginSession);
+
+// add new comments
+app.post("/add-comment", handleAddComment);
+
+// fetch all comments for an activity
+app.get("/get-comments", handleGetComments);
+
+// update single comment
+app.patch("/update-comment/:_id", handleUpdateComment);
+
+// delete single comment
+app.delete("/delete-comment/:_id", handleDeleteComment);
 
 app.get("*", (req, res) => {
   console.log("This is not the endpoint you are looking for");

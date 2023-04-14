@@ -30,8 +30,9 @@ const Profile = () => {
   //frontend,
   // this state variable is just for user interaction to see update in frontend
   // the backend already knows if its' asked to follow or unfollow
-  const [numOfFollowers, setNumOfFollowers] = useState(undefined);
+  const [numOfFollowers, setNumOfFollowers] = useState(0);
 
+  console.log("numOfFollowers numOfFollowers", numOfFollowers);
   // When the profile component is mounted , fetch the profile data of the
   // user with the provided _id in useParams();
   useEffect(() => {
@@ -149,6 +150,7 @@ const UserInfoContainer = styled.div`
   height: 30%;
   background: #293241;
   padding-bottom: 10px;
+  color: white;
 `;
 
 const Banner = styled.div`
@@ -200,6 +202,7 @@ const SubContainer = styled.div`
 const DisplayName = styled.div`
   margin: 10px;
   font-size: large;
+  color: white;
   div {
     padding: 2px 0px;
     font-size: 0.8em;

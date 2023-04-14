@@ -19,8 +19,11 @@ const SingleActivityInfoWindow = ({ post }) => {
 
   const iconSize = 25;
 
+
+  
+ 
   const handleClick = () => {
-    navigate(`/activity/${post.id}`);
+    navigate(`/activity/${post._id}`);
   };
 
   return (

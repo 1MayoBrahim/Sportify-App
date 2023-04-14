@@ -5,8 +5,8 @@ import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 
 const JoinButton = ({
   postData,
-  numOfRemaniningSpots,
-  SetNumOfRemaniningSpots,
+  numOfRemainingSpots,
+  setNumOfRemainingSpots,
 }) => {
   // Get the current user data from the context
   const { currentUser } = useContext(CurrentUserContext);
@@ -19,20 +19,22 @@ const JoinButton = ({
   )
     ? true
     : false;
-  const [isCurrentUserJoined, setIsCurreuntUserJoined] =
+  const [isCurrentUserJoined, setIsCurrentUserJoined] =
     useState(initialJoiningStatus);
 
   const handleJoining = () => {
     // This update is for userinteraction to change the button style based on
     // the current status of joining
-    setIsCurreuntUserJoined(!isCurrentUserJoined);
+    setIsCurrentUserJoined(!isCurrentUserJoined);
 
     // This is also for frontend to increment/decrement num of spots in the activity
-    isCurrentUserJoined
-      ? SetNumOfRemaniningSpots(numOfRemaniningSpots + 1)
-      : SetNumOfRemaniningSpots(numOfRemaniningSpots - 1);
+    if (isCurrentUserJoined) {
+      setNumOfRemainingSpots((prev) => prev + 1);
+    } else {
+      setNumOfRemainingSpots((prev) => prev - 1);
+    }
 
-    // Now let's let the backend does its work to update the joining status + the num of remaning spots
+    // Now let's let the backend does its work to update the joining status + the num of remaining spots
     fetch("/post/updateJoining", {
       method: "PUT",
       body: JSON.stringify({ currentUser, postData }),

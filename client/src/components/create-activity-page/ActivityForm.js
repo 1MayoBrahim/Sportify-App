@@ -5,18 +5,16 @@ import { sports, levels } from "./FormConstants";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import AddressSearchBox from "./AddressSearchBox";
-import LoadingCircule from "../loading-components/loadingCircle";
+import LoadingCircle from "../loading-components/loadingCircle";
 
 const ActivityForm = () => {
   // Get the current user info from the currentUserContext
   const { currentUser } = useContext(CurrentUserContext);
 
   // An alert for the form status after a submission
-  const Alert = React.forwardRef(
-    (Alert = (props, ref) => {
-      return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-    })
-  );
+  const Alert = React.forwardRef((props, ref) => {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
   // Initial values for the activity post form
   const initialFormValues = {
@@ -210,7 +208,7 @@ const ActivityForm = () => {
 
         <ButtonContainer>
           <SubmitButton type="submit">
-            {formStatus === "loading" ? <LoadingCircule /> : "Post"}
+            {formStatus === "loading" ? <LoadingCircle /> : "Post"}
           </SubmitButton>
           <RestButton type="reset" onClick={() => handleFormRest()}>
             Clear

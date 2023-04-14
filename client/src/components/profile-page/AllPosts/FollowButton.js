@@ -24,6 +24,8 @@ const FollowButton = ({
     initialFollowerStatus
   );
 
+  console.log("numOfFollowers", numOfFollowers);
+
   const handleFollowing = () => {
     // When follow button is clicked, set the opposite of it's current value
     setIsCurrentUserFollowing(!isCurrentUserFollowing);
@@ -35,7 +37,8 @@ const FollowButton = ({
 
     fetch("/users/follow", {
       method: "PUT",
-      body: JSON.stringify({ currentUser, targetedUser }),
+
+      body: JSON.stringify({ currentUser, targetUser: targetedUser }),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

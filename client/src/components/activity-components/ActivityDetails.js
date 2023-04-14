@@ -18,7 +18,19 @@ const ActivityDetails = () => {
   // Get the post id for fetching
   const { _id } = useParams();
 
-  // A state variable store single post data aftet fetching
+  // user commnets
+  const [comment, setComment] = useState("");
+  // is there a new comment
+  const [isComment, setIsComment] = useState(false);
+  // all comments related to this activity
+  const [allComments, setAllComments] = useState([]);
+  // id for the comment to be modified
+  const [isEditId, setIsEditId] = useState(null);
+
+  // updatedComment
+  const [updatedComment, setUpdatedComment] = useState("");
+
+  // A state variable store single post data after fetching
   const [postData, setPostData] = useState(null);
 
   // A state variable to handle the loading screen until data is fetched
@@ -27,7 +39,7 @@ const ActivityDetails = () => {
   // A state variable to handle the update of remaining sports in the activity
   // The State variable is for user interaction to show a realtime update in the number
   // of remaining sports in the activity. The backend already is built to update the remaining spots for an activity
-  const [numOfRemainingSpots, SetNumOfRemainingSpots] = useState(undefined);
+  const [numOfRemainingSpots, setNumOfRemainingSpots] = useState(0);
 
   // Create an endpoint to fetch specific post information
   useEffect(() => {
@@ -37,9 +49,17 @@ const ActivityDetails = () => {
       .then((data) => {
         setPostData(data.post);
         setPostStatus("idle");
-        SetNumOfRemainingSpots(data.post.limit - data.post.joining.length);
+        setNumOfRemainingSpots(data.post.limit - data.post.joining.length);
       });
   }, [_id]);
+
+  useEffect(() => {
+    fetch(`/get-comments?activityId=${_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setAllComments(data.data);
+      });
+  }, [_id, isComment]);
 
   if (postStatus === "loading") {
     return (
@@ -48,6 +68,75 @@ const ActivityDetails = () => {
       </CircleWrapper>
     );
   }
+
+  // Add null check before accessing the properties of postData
+  const creator_id = postData?.creator_id;
+  const activityType = postData?.activityType;
+  if (!creator_id || !activityType) {
+    return <div>Error: The requested activity does not exist.</div>;
+  }
+
+  const submitHanlder = (e) => {
+    e.preventDefault();
+    fetch("/add-comment", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: currentUser._id,
+        comment,
+        activityId: _id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          setComment("");
+          setIsComment(!isComment);
+        }
+      });
+  };
+  const updateHandler = (e) => {
+    e.preventDefault();
+    fetch(`/update-comment/${isEditId}`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        comment: updatedComment,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          setUpdatedComment("");
+          setIsEditId(null);
+          setIsComment(!isComment);
+        }
+      });
+  };
+
+  const handleDelete = (id) => {
+    fetch(`/delete-comment/${id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          setIsEditId(null);
+          setIsComment(!isComment);
+        }
+      });
+  };
+
   return (
     <Wrapper>
       <ReturnBar>
@@ -57,15 +146,14 @@ const ActivityDetails = () => {
       </ReturnBar>
       <Summary>
         <FaShieldAlt size={100} color={"#EE6C4D"} />
-        {postData.creator_id !== currentUser._id && (
+        {creator_id !== currentUser._id && (
           <JoinButton
             postData={postData}
-            numOfRemainingSpots={numOfRemainingSpots}
-            SetNumOfRemainingSpots={SetNumOfRemainingSpots}
+            setNumOfRemainingSpots={setNumOfRemainingSpots}
           />
         )}
         <Type>
-          <span>{postData.activityType}</span>
+          <span>{activityType}</span>
           {" - "}
           <span>{postData.level} Level</span>
         </Type>
@@ -93,6 +181,17 @@ const ActivityDetails = () => {
         </SubContainer>
       </Summary>
 
+      <Container>
+        <form onSubmit={submitHanlder}>
+          <input
+            value={comment}
+            onChange={(e) => {
+              setComment(e.target.value);
+            }}
+          />
+          <button>Comment</button>
+        </form>
+      </Container>
       <Container>
         <Description>
           <h2>Description</h2>
@@ -132,6 +231,53 @@ const ActivityDetails = () => {
               }
             })}
           </ParticipantsContainer>
+        </Description>
+      </Container>
+      <Container>
+        <Description>
+          <h2>Comments</h2>
+          <CommentsContainer>
+            {allComments.map((comment) => {
+              return (
+                <div>
+                  <p>{comment.comment}</p>
+                  {comment.userId === currentUser._id && (
+                    <>
+                      <button
+                        onClick={() => {
+                          if (isEditId) {
+                            setIsEditId(null);
+                          } else {
+                            setIsEditId(comment._id);
+                          }
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => {
+                          handleDelete(comment._id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
+                  {comment._id === isEditId && (
+                    <form onSubmit={updateHandler}>
+                      <input
+                        value={updatedComment}
+                        onChange={(e) => {
+                          setUpdatedComment(e.target.value);
+                        }}
+                      />
+                      <button>Update</button>
+                    </form>
+                  )}
+                </div>
+              );
+            })}
+          </CommentsContainer>
         </Description>
       </Container>
       <br />
@@ -188,6 +334,7 @@ const CircleWrapper = styled.div`
 
 const ReturnBar = styled.div`
   padding: 10px 10px;
+  color: white;
 `;
 
 const ReturnButton = styled.button`
@@ -211,6 +358,7 @@ const Summary = styled.div`
 
 const Container = styled.div`
   padding: 0px 15px;
+  background-color: #081b45;
 `;
 const Description = styled.div`
   h2 {
@@ -221,6 +369,7 @@ const Description = styled.div`
   }
   p {
     margin: 10px 0px;
+    color: white;
   }
 `;
 const Address = styled.div`
@@ -232,16 +381,19 @@ const Address = styled.div`
   }
   p {
     margin: 10px 0px;
+    color: white;
   }
 `;
 
 const Date = styled.div`
   margin-top: 5px;
   font-size: 1.2em;
+  color: white;
 `;
 const Time = styled.div`
   margin-top: 5px;
   font-size: 1.2em;
+  color: white;
 `;
 const Type = styled.div`
   font-weight: 600;
@@ -257,6 +409,7 @@ const SubContainer = styled.div`
 `;
 
 const Text = styled.div`
+  color: white;
   display: flex;
   margin: 7px;
   align-items: center;
@@ -268,6 +421,12 @@ const Text = styled.div`
 const ParticipantsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-top: 10px;
+`;
+const CommentsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
   margin-top: 10px;
 `;
 
