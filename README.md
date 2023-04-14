@@ -41,7 +41,7 @@ makefile
 # Copy code
 REACT_APP_API_BASE_URL=<your API base URL>
 REACT_APP_GOOGLE_MAPS_API_KEY=<your Google Maps API key>
-Run npm start in the root folder to start the development server.
+
 # Deployment
 To deploy Sportify, you can use either Heroku or Netlify. You need to set the same environment variables as mentioned above in the deployment platform.
 
