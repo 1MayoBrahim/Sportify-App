@@ -15,7 +15,7 @@ Clone this repository.
 Open a terminal. Navigate to the client folder by typing cd client. Install the dependencies with yarn install. Boot React with yarn start.
 
 # The Backend (server):
-Open a new terminal (you can use a split terminal if you want). Navigate to the server folder by typing cd server. Install the dependencies with yarn install. Boot the server with yarn start:server. After following these steps, you should have 2 terminals. One should be running React, and the other should be running the server. Create a .env file in the root folder and add the following environment variables: makefile
+Open a new terminal (you can use a split terminal if you want). Navigate to the server folder by typing cd server. Install the dependencies with yarn install. Boot the server with yarn dev to start server. After following these steps, you should have 2 terminals. One should be running React, and the other should be running the server. Create a .env file in the root folder and add the following environment variables: makefile
 
 Copy code
 REACT_APP_API_BASE_URL= REACT_APP_GOOGLE_MAPS_API_KEY=
